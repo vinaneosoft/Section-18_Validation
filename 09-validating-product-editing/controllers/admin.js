@@ -1,4 +1,4 @@
-const { validationResult } = require('express-validator/check');
+const { validationResult } = require('express-validator');
 
 const Product = require('../models/product');
 
@@ -24,7 +24,7 @@ exports.postAddProduct = (req, res, next) => {
     console.log(errors.array());
     return res.status(422).render('admin/edit-product', {
       pageTitle: 'Add Product',
-      path: '/admin/edit-product',
+      path: '/admin/add-product',
       editing: false,
       hasError: true,
       product: {
@@ -103,8 +103,8 @@ exports.postEditProduct = (req, res, next) => {
         description: updatedDesc,
         _id: prodId
       },
-      errorMessage: errors.array()[0].msg,
-      validationErrors: errors.array()
+      errorMessage: errors.array()[0].msg, // [{msg:'error message...'}]
+      validationErrors: errors.array() // {param : fieldname}
     });
   }
 
